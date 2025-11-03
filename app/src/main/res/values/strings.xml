@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">大屏快捷菜单增强</string>
+    <string name="xposed_description">在大屏的通知页面上添加快捷菜单，如：关闭屏幕</string>
+    <array name="xposed_scope">
+        <item>com.android.systemui</item>
+    </array>
+</resources>

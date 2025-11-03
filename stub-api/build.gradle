@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'com.xiaopeng.xposed.stub'
+    compileSdk libs.versions.sdkCompile.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.sdkMin.get().toInteger()
+        targetSdk libs.versions.sdkTarget.get().toInteger()
+    }
+    buildFeatures {
+        aidl false
+        buildConfig false
+        dataBinding false
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    compileOnly libs.androidx.core.ktx
+    compileOnly libs.androidx.appcompat
+    compileOnly libs.common.framework
+}
+
+
+
