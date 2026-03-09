@@ -6,6 +6,7 @@ import android.os.PowerManager
 import android.os.SystemClock
 import android.view.View
 import android.view.ViewGroup
+import com.xiaopeng.systemui.carmanager.XuiClientWrapper
 import com.xiaopeng.systemui.quickmenu.QuickMenuPresenterManager
 import com.xiaopeng.systemui.quickmenu.widgets.XTileButton
 import org.joor.Reflect
@@ -13,6 +14,7 @@ import org.joor.Reflect
 class XposedView {
 
     private var mViewQuickMenuScreenOff: XTileButton? = null
+    private var mViewQuickMenuWaitMode: XTileButton? = null
 
     fun initView(layoutView: View) {
         initViewQuickMenuVerticalFlexboxLayout1(layoutView)
@@ -20,6 +22,7 @@ class XposedView {
 
     fun themeChanged() {
         mViewQuickMenuScreenOff?.refreshTheme()
+        mViewQuickMenuWaitMode?.refreshTheme()
     }
 
     @Synchronized
@@ -55,15 +58,29 @@ class XposedView {
         quickMenuScreenOff.refreshTheme()
 
         quickMenuVerticalFlexboxLayout1.addView(quickMenuScreenOff)
+
+        val quickMenuWaitMode = XTileButton(context)
+        mViewQuickMenuWaitMode = quickMenuWaitMode
+        quickMenuWaitMode.id = View.generateViewId()
+        quickMenuWaitMode.setBackgroundRes(context.getResourceId(type = "drawable", name = "quick_menu_layout_drawable"))
+        quickMenuWaitMode.setImageResource(context.getResourceId(type = "drawable", name = "ic_qs_wait00"))
+        quickMenuScreenOff.setTextRes(context.getResourceId(type = "string", name = "qs_panel_psn_screenoff"))
+        quickMenuScreenOff.setTextColor(context.getResourceId(type = "color", name = "quick_menu_tile_text_color"))
+        quickMenuWaitMode.cloneVuiByView(view = layoutView.findViewById(context.getResourceId(type = "id", name = "quick_menu_360")))
+        quickMenuWaitMode.setOnClickListener(mOnClickQuickMenuWaitModeListener)
+        quickMenuWaitMode.setText(text = "等人模式")
+        quickMenuWaitMode.refreshTheme()
+
+        quickMenuVerticalFlexboxLayout1.addView(quickMenuWaitMode)
     }
 
     private fun XTileButton.cloneVuiByView(view: View) {
-        val targetAttributeSet: HashMap<String, Integer> = Reflect.on(view)
+        val targetAttributeSet: HashMap<String, Int> = Reflect.on(view)
             .field("mThemeViewModel")
             .field("mAttributeSet")
             .get()
 
-        val selfAttributeSet: HashMap<String, Integer> = Reflect.on(this)
+        val selfAttributeSet: HashMap<String, Int> = Reflect.on(this)
             .field("mThemeViewModel")
             .field("mAttributeSet")
             .get()
@@ -77,13 +94,18 @@ class XposedView {
 
     @SuppressLint("DiscouragedApi")
     private fun Context.getResourceId(type: String, name: String): Int {
-        return resources.getIdentifier(name, type, packageName)
+        return resources.getIdentifier(/* name = */ name, /* defType = */ type, /* defPackage = */ packageName)
+    }
+
+    private val mOnClickQuickMenuWaitModeListener: View.OnClickListener = View.OnClickListener {
+        XuiClientWrapper.getInstance().startWaitingMode(/* screenId = */ 0)
+        QuickMenuPresenterManager.getInstance().autoHideQuickMenu(/* screenIndex = */ 0)
     }
 
     private val mOnClickQuickMenuScreenOffListener: View.OnClickListener = View.OnClickListener {
         val context: Context = it.context
 
-        QuickMenuPresenterManager.getInstance().autoHideQuickMenu(0)
+        QuickMenuPresenterManager.getInstance().autoHideQuickMenu(/* screenIndex = */ 0)
 
         // xp_mt_ivi = 娱乐大屏
         // xp_mt_psg = 副驾屏幕

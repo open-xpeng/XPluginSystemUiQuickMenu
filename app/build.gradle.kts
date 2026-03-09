@@ -14,8 +14,8 @@ android {
         applicationId = "com.xiaopeng.xposed.systemui.quickmenu"
         minSdk = libs.versions.sdkMin.get().toInt()
         targetSdk = libs.versions.sdkTarget.get().toInt()
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.1.0"
         multiDexEnabled = false
     }
     compileOptions {
