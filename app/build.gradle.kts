@@ -3,7 +3,6 @@ import java.util.Date
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -18,20 +17,16 @@ android {
         versionCode = 3
         versionName = "1.0.2"
         multiDexEnabled = false
-        setProperty("archivesBaseName", "XPluginSystemUiQuickMenu-$versionName-$versionCode-" + SimpleDateFormat("yyyyMMdd").format(Date()))
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         viewBinding = false
         buildConfig = false
     }
-    packagingOptions {
+    packaging {
         resources.excludes.add("kotlin/**")
         resources.excludes.add("kotlin-tooling-metadata.json")
         resources.excludes.add("DebugProbesKt.bin")
@@ -74,6 +69,14 @@ android {
             isShrinkResources = true
         }
     }
+}
+
+kotlin {
+    jvmToolchain(11)
+}
+
+base.archivesName = android.defaultConfig.let {
+    "XPluginSystemUiQuickMenu-${it.versionName}-${it.versionCode}-" + SimpleDateFormat("yyyyMMdd").format(Date())
 }
 
 dependencies {

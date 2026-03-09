@@ -6,7 +6,6 @@ android {
 
     defaultConfig {
         minSdk libs.versions.sdkMin.get().toInteger()
-        targetSdk libs.versions.sdkTarget.get().toInteger()
     }
     buildFeatures {
         aidl false
@@ -16,6 +15,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+    lint {
+        targetSdk libs.versions.sdkTarget.get().toInteger()
     }
 }
 
