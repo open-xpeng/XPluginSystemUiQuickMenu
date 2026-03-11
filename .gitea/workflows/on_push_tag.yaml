@@ -1,0 +1,54 @@
+name: Android CI
+
+on:
+    push:
+        tags: [ 'v*' ]
+
+jobs:
+    build:
+        name: 创建发布APK
+        runs-on: ubuntu-latest
+
+        container:
+            volumes:
+                - /volume3/docker/service/data/gitea-runner/volumes/distribution:/opt/distribution:ro
+                - /volume3/docker/service/data/gitea-runner/volumes/.android:/root/.android
+                - /volume3/docker/service/data/gitea-runner/volumes/.gradle:/root/.gradle
+                - /volume3/docker/service/data/gitea-runner/volumes/.m2:/root/.m2
+            env:
+                ANDROID_HOME: /root/.android/sdk
+
+        steps:
+            -   name: 检出代码
+                uses: actions/checkout@v3
+                with:
+                    lfs: true
+
+            -   name: 设置 JDK 21
+                uses: actions/setup-java@v5
+                with:
+                    java-version: '21'
+                    distribution: 'jdkfile'
+                    jdkFile: /opt/distribution/OpenJDK21U-jdk_x64_linux_hotspot_21.0.9_10.tar.gz
+
+            -   name: 授予 Gradle 执行权限
+                run: chmod +x ./gradlew
+
+            -   name: 构建 Release APK
+                run: >
+                    ./gradlew :app:assembleRelease
+                    -Dorg.gradle.daemon=false
+                env:
+                    BUILD_VERSION_NAME: ${{ github.ref_name }}
+                    BUILD_RELEASE_PASSWORD: ${{ secrets.BUILD_RELEASE_PASSWORD }}
+
+            -   name: 上传 Release APK
+                uses: akkuman/gitea-release-action@v1
+                with:
+                    tag_name: ${{ github.ref_name }}
+                    name: ${{ github.ref_name }}
+                    body: ${{ github.event.head_commit.message }}
+                    draft: false
+                    prerelease: false
+                    files: |
+                        app/build/outputs/apk/release/XPluginSystemUiQuickMenu-*-release.apk
