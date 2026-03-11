@@ -1,6 +1,6 @@
 [versions]
 agp        = "9.1.0"
-kotlin     = "2.3.20-RC2"
+kotlin     = "2.3.20-RC3"
 sdkMin     = "24"
 sdkCompile = "36"
 sdkTarget  = "36"
@@ -25,7 +25,13 @@ common-guava     = 'com.google.guava:guava:33.5.0-android'
 common-joor      = 'org.jooq:joor-java-8:0.9.15'                                # https://github.com/jOOQ/jOOR
 common-xposed    = 'com.wind.xposed:xposed-api-lib:0.1.3'
 common-framework = 'com.rover12421.android.hide:framework:10.0.0_r2'            # https://github.com/rover12421/AndroidHideApi | https://mvnrepository.com/artifact/com.rover12421.android.hide/framework
-common-xpeng     = 'io.github.xpeng:car:0.0.2'
+
+#
+# xpeng
+#
+xpeng-car           = 'io.github.xpeng:car:0.0.2'
+xpeng-xui           = 'io.github.xpeng:xui:0.0.1'
+xpeng-xui-manager   = 'io.github.xpeng:xuimanager:0.0.1'
 
 [plugins]
 android-application = { id = "com.android.application"     , version.ref = "agp"    }

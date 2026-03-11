@@ -22,9 +22,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     compileOnly libs.androidx.core.ktx
     compileOnly libs.androidx.appcompat
+    compileOnly libs.xpeng.car
+    compileOnly libs.xpeng.xui
+    compileOnly libs.xpeng.xui.manager
     compileOnly libs.common.framework
 }
 

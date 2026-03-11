@@ -1,6 +1,3 @@
-import java.text.SimpleDateFormat
-import java.util.Date
-
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -8,15 +5,16 @@ plugins {
 android {
     namespace = "com.xiaopeng.xposed.systemui.quickmenu"
     compileSdk {
-        version = release(libs.versions.sdkCompile.get().toInt())
+        version = release(version = libs.versions.sdkCompile.get().toInt())
     }
     defaultConfig {
         applicationId = "com.xiaopeng.xposed.systemui.quickmenu"
         minSdk = libs.versions.sdkMin.get().toInt()
         targetSdk = libs.versions.sdkTarget.get().toInt()
-        versionCode = 4
-        versionName = "1.1.0"
+        versionCode = rootProject.extra["BuildVersionCode"] as Int
+        versionName = rootProject.extra["BuildVersionName"] as String
         multiDexEnabled = false
+        base.archivesName = "XPluginSystemUiQuickMenu-$versionName-$versionCode"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -49,7 +47,7 @@ android {
             storeFile = file("app.jks")
             storePassword = "123456"
             keyAlias = "release"
-            keyPassword = "12345678900."
+            keyPassword = rootProject.extra["BuildReleasePassword"] as String
             enableV1Signing = true
             enableV2Signing = true
             enableV3Signing = true
@@ -72,11 +70,9 @@ android {
 }
 
 kotlin {
-    jvmToolchain(11)
-}
-
-base.archivesName = android.defaultConfig.let {
-    "XPluginSystemUiQuickMenu-${it.versionName}-${it.versionCode}-" + SimpleDateFormat("yyyyMMdd").format(Date())
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+    }
 }
 
 dependencies {
@@ -86,6 +82,11 @@ dependencies {
     compileOnly(libs.androidx.core.ktx)
     compileOnly(libs.androidx.appcompat)
     compileOnly(libs.androidx.constraint)
+
+    compileOnly(libs.xpeng.car)
+    compileOnly(libs.xpeng.xui)
+    compileOnly(libs.xpeng.xui.manager)
+
     compileOnly(libs.common.xposed)
     compileOnly(libs.common.framework)
 }
