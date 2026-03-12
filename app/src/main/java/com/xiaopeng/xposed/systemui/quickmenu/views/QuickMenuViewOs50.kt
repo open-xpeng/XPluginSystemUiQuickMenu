@@ -1,21 +1,16 @@
 package com.xiaopeng.xposed.systemui.quickmenu.views
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.content.res.ColorStateList
-import com.xiaopeng.libtheme.ThemeManager
 import com.xiaopeng.systemui.quickmenu.widgets.DockXTileButton
 import com.xiaopeng.xposed.systemui.quickmenu.clicks.OnClickQuickMenuScreenOffListener
 import com.xiaopeng.xposed.systemui.quickmenu.clicks.OnClickQuickMenuWaitModeListener
 import com.xiaopeng.xposed.systemui.quickmenu.extensions.getResourceId
 import org.joor.Reflect
-import androidx.core.graphics.toColorInt
 
-class QuickMenuViewOs50: QuickMenuViewOs {
+class QuickMenuViewOs50 : QuickMenuViewOs {
 
     private var mViewQuickMenuScreenOff: DockXTileButton? = null
     private var mViewQuickMenuWaitMode: DockXTileButton? = null
@@ -72,9 +67,7 @@ class QuickMenuViewOs50: QuickMenuViewOs {
 
     override fun refreshTheme() {
         mViewQuickMenuScreenOff?.refreshTheme()
-        //mViewQuickMenuScreenOff?.updateImageTineColor()
         mViewQuickMenuWaitMode?.refreshTheme()
-        //mViewQuickMenuWaitMode?.updateImageTineColor()
     }
 
     private fun DockXTileButton.cloneVuiByView(view: View) {
@@ -93,18 +86,6 @@ class QuickMenuViewOs50: QuickMenuViewOs {
 
     private fun DockXTileButton.setText(text: String) {
         Reflect.on(this).field("mTextView").call("setText", text)
-    }
-
-    private fun DockXTileButton.updateImageTineColor() {
-        val context: Context = this.context
-        val isDarkMode: Boolean = ThemeManager.getUiMode(context) == ThemeManager.UI_MODE_NIGHT_YES
-        val color:Int = when(isDarkMode) {
-            true  -> "#FFFFFFFF".toColorInt()
-            false -> "#FF272a33".toColorInt()
-        }
-
-        val mImageView: ImageView = Reflect.on(this).field("mImageView").get()
-        mImageView.imageTintList = ColorStateList.valueOf(color)
     }
 
 }

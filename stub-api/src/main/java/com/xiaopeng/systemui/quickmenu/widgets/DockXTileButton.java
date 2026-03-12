@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.xiaopeng.libtheme.ThemeViewModel;
 
 /* loaded from: classes24.dex */
+@SuppressWarnings("unused")
 public class DockXTileButton extends FrameLayout {
     public static final int HORIZONTAL = 1;
     public static final int VERTICAL   = 0;

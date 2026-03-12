@@ -1,5 +1,6 @@
 package com.xiaopeng.systemui.quickmenu;
 
+@SuppressWarnings("unused")
 public class QuickMenuPresenterManager {
 
     public static QuickMenuPresenterManager getInstance() {
@@ -9,6 +10,5 @@ public class QuickMenuPresenterManager {
     public void autoHideQuickMenu(int screenIndex) {
         throw new RuntimeException("Stub!");
     }
-
 
 }

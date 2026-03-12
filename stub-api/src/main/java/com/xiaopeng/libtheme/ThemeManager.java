@@ -2,41 +2,44 @@ package com.xiaopeng.libtheme;
 
 import android.R;
 import android.app.IUiModeManager;
-import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.os.IBinder;
-import android.os.ServiceManager;
 import android.os.SystemProperties;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /* JADX INFO: loaded from: classes22.dex */
+@SuppressWarnings("unused")
 public class ThemeManager {
     public static final boolean DEBUG;
-    public static final String KEY_APPEND = "extra_append";
-    public static final String KEY_GLOBAL = "extra_global";
+    public static final String  KEY_APPEND = "extra_append";
+    public static final String  KEY_GLOBAL = "extra_global";
+
     public static final int MODE_NIGHT_AUTO = 0;
-    public static final int MODE_NIGHT_NO = 1;
-    public static final int MODE_NIGHT_YES = 2;
-    private static final String TAG = "ThemeManager";
-    public static final boolean THEME;
+    public static final int MODE_NIGHT_NO   = 1;
+    public static final int MODE_NIGHT_YES  = 2;
+
+    private static final String  TAG = "ThemeManager";
+    public static final  boolean THEME;
+
     public static final long THEME_ANIMATION_INTERVAL = 1;
-    public static final long THEME_TIMEOUT_DELAY = 1;
-    public static final int UI_MODE_NIGHT_MASK = 48;
-    public static final int UI_MODE_NIGHT_NO = 16;
-    public static final int UI_MODE_NIGHT_UNDEFINED = 0;
-    public static final int UI_MODE_NIGHT_YES = 32;
-    public static final int UI_MODE_THEME_CLEAR = 63;
-    public static final int UI_MODE_THEME_MASK = 192;
-    public static final int UI_MODE_THEME_UNDEFINED = 0;
+    public static final long THEME_TIMEOUT_DELAY      = 1;
+    public static final int  UI_MODE_NIGHT_UNDEFINED  = 0;
+    public static final int  UI_MODE_NIGHT_MASK       = 48;
+    public static final int  UI_MODE_NIGHT_YES        = 32;
+    public static final int  UI_MODE_NIGHT_NO         = 16;
+    public static final int  UI_MODE_THEME_CLEAR      = 63;
+    public static final int  UI_MODE_THEME_MASK       = 192;
+    public static final int  UI_MODE_THEME_UNDEFINED  = 0;
+
     public static final int VERSION = 3;
+
     private Context mContext;
 
     static {
@@ -155,20 +158,20 @@ public class ThemeManager {
     }
 
     public static class ResourceType {
-        public static final int ANIM = 0;
-        public static final int ARRAY = 1;
-        public static final int ATTR = 2;
-        public static final int BOOL = 3;
-        public static final int COLOR = 4;
-        public static final int DIMEN = 5;
-        public static final int DRAWABLE = 6;
-        public static final int ID = 7;
-        public static final int INTEGER = 8;
-        public static final int LAYOUT = 9;
-        public static final int MIPMAP = 10;
-        public static final int STRING = 11;
-        public static final int STYLE = 12;
-        public static final int STYLEABLE = 13;
+        public static final int                      ANIM          = 0;
+        public static final int                      ARRAY         = 1;
+        public static final int                      ATTR          = 2;
+        public static final int                      BOOL          = 3;
+        public static final int                      COLOR         = 4;
+        public static final int                      DIMEN         = 5;
+        public static final int                      DRAWABLE      = 6;
+        public static final int                      ID            = 7;
+        public static final int                      INTEGER       = 8;
+        public static final int                      LAYOUT        = 9;
+        public static final int                      MIPMAP        = 10;
+        public static final int                      STRING        = 11;
+        public static final int                      STYLE         = 12;
+        public static final int                      STYLEABLE     = 13;
         public static final HashMap<String, Integer> sResourceType = new HashMap<>();
 
         static {
@@ -199,26 +202,26 @@ public class ThemeManager {
     }
 
     public static class AttributeSet {
-        public static final String ALPHA = "alpha";
-        public static final String BACKGROUND = "background";
-        public static final String BUTTON = "button";
-        public static final String DIVIDER = "divider";
-        public static final String DRAWABLE_BOTTOM = "drawableBottom";
-        public static final String DRAWABLE_END = "drawableEnd";
-        public static final String DRAWABLE_LEFT = "drawableLeft";
-        public static final String DRAWABLE_RIGHT = "drawableRight";
-        public static final String DRAWABLE_START = "drawableStart";
-        public static final String DRAWABLE_TOP = "drawableTop";
-        public static final String FOREGROUND = "foreground";
-        public static final String PROGRESS_DRAWABLE = "progressDrawable";
-        public static final String SCROLLBAR_THUMB_VERTICAL = "scrollbarThumbVertical";
-        public static final String SRC = "src";
-        public static final String STYLE = "style";
-        public static final String TEXT_COLOR = "textColor";
-        public static final String TEXT_COLOR_HINT = "textColorHint";
-        public static final String THEME = "theme";
-        public static final String THUMB = "thumb";
-        public static final HashMap<String, Integer> sAttributeMap = new HashMap<>();
+        public static final String                   ALPHA                    = "alpha";
+        public static final String                   BACKGROUND               = "background";
+        public static final String                   BUTTON                   = "button";
+        public static final String                   DIVIDER                  = "divider";
+        public static final String                   DRAWABLE_BOTTOM          = "drawableBottom";
+        public static final String                   DRAWABLE_END             = "drawableEnd";
+        public static final String                   DRAWABLE_LEFT            = "drawableLeft";
+        public static final String                   DRAWABLE_RIGHT           = "drawableRight";
+        public static final String                   DRAWABLE_START           = "drawableStart";
+        public static final String                   DRAWABLE_TOP             = "drawableTop";
+        public static final String                   FOREGROUND               = "foreground";
+        public static final String                   PROGRESS_DRAWABLE        = "progressDrawable";
+        public static final String                   SCROLLBAR_THUMB_VERTICAL = "scrollbarThumbVertical";
+        public static final String                   SRC                      = "src";
+        public static final String                   STYLE                    = "style";
+        public static final String                   TEXT_COLOR               = "textColor";
+        public static final String                   TEXT_COLOR_HINT          = "textColorHint";
+        public static final String                   THEME                    = "theme";
+        public static final String                   THUMB                    = "thumb";
+        public static final HashMap<String, Integer> sAttributeMap            = new HashMap<>();
 
         static {
             sAttributeMap.clear();

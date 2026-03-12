@@ -69,7 +69,6 @@ class XposedMain : IXposedHookLoadPackage {
                 false -> QuickMenuViewOs37()
             }
 
-            XposedBridge.log(/* text = */ "QuickMenuVerticalViewHolder.initView, quick menu=$mQuickMenuViewOs")
             val mQuickMenuViewOs = mQuickMenuViewOs
             if (mQuickMenuViewOs == null) {
                 XposedBridge.log(/* text = */ "QuickMenuVerticalViewHolder.initView, quick menu=null")

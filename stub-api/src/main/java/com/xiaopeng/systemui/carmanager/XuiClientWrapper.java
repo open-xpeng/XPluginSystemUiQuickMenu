@@ -12,6 +12,7 @@ import com.xiaopeng.xuimanager.makeuplight.MakeupLightManager;
 import com.xiaopeng.xuimanager.userscenario.UserScenarioManager;
 
 /* loaded from: classes24.dex */
+@SuppressWarnings("unused")
 public class XuiClientWrapper implements MakeupLightManager.EventListener {
 
     public static final int MIC_POWER_STATUS_OFF  = 0;

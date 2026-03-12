@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 
 /* loaded from: classes24.dex */
+@SuppressWarnings("unused")
 public class FlowLayout extends ViewGroup {
     public static final int SPACING_ALIGN = -65537;
     public static final int SPACING_AUTO = -65536;

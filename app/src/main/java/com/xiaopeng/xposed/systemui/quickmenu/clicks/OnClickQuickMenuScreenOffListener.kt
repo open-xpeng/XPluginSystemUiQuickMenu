@@ -5,10 +5,17 @@ import android.os.PowerManager
 import android.os.SystemClock
 import android.view.View
 import com.xiaopeng.systemui.quickmenu.QuickMenuPresenterManager
+import de.robv.android.xposed.XposedBridge
 import org.joor.Reflect
 
-object OnClickQuickMenuScreenOffListener: View.OnClickListener {
+object OnClickQuickMenuScreenOffListener : View.OnClickListener {
+
     override fun onClick(view: View) {
+        runCatching { onClickCatching(view) }
+            .onFailure { XposedBridge.log(it) }
+    }
+
+    private fun onClickCatching(view: View) {
         QuickMenuPresenterManager.getInstance().autoHideQuickMenu(/* screenIndex = */ 0)
 
         // xp_mt_ivi = 娱乐大屏

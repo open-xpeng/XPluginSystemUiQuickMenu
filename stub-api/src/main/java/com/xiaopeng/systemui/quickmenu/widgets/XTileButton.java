@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 
+@SuppressWarnings("unused")
 public class XTileButton extends FrameLayout {
 
     public static final int HORIZONTAL = 1;
-    public static final int VERTICAL = 0;
+    public static final int VERTICAL   = 0;
 
     public XTileButton(Context context) {
         this(context, null);
