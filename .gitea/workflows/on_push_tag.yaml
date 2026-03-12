@@ -50,5 +50,7 @@ jobs:
                     body: ${{ github.event.head_commit.message }}
                     draft: false
                     prerelease: false
+                    sha256sum: false
                     files: |
                         app/build/outputs/apk/release/XPluginSystemUiQuickMenu-*-release.apk
+                        app/build/outputs/mapping/release/mapping.txt
