@@ -35,4 +35,4 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
 ##########################################################################################################
--keep class * implements de.robv.android.xposed.IXposedHookLoadPackage
+-keep class * implements de.robv.android.xposed.IXposedHookLoadPackage { <init>(); }
